@@ -22,6 +22,7 @@ class Band:
         return cls(CURSOR.lastrowid, name, hometown)
 
     def concerts(self):
+        #Return a collection of all concerts the band has played
         query = """
         SELECT * FROM concerts
         WHERE band_id = ?
@@ -30,6 +31,7 @@ class Band:
         return CURSOR.fetchall()
 
     def venues(self):
+        #Return a collection of all venues the band has performed at
         query = """
         SELECT DISTINCT venues.*
         FROM concerts 
@@ -68,19 +70,17 @@ class Band:
     def most_performances(cls):
         # Return the band that has played the most concerts
         query = """
-        SELECT bands.id, bands.name, COUNT(concerts.id) AS concert_count
+        SELECT bands.id, bands.name, bands.hometown, COUNT(concerts.id) AS concert_count
         FROM bands 
         JOIN concerts ON bands.id = concerts.band_id
-        GROUP BY bands.id
+        GROUP BY bands.id, bands.hometown  -- Group by both id and hometown
         ORDER BY concert_count DESC
         LIMIT 1
         """
         CURSOR.execute(query)
         result = CURSOR.fetchone()
-        return cls(result[0], result[1], None)
-    
 
-
-
-
-
+        if result:  # Check if a result was found
+            return cls(result[0], result[1], result[2])  # result[2] is now the hometown
+        else:
+            return None  # Return None if no result found

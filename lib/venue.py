@@ -24,6 +24,7 @@ class Venue:
         
     
     def concerts(self):
+        #Returns a collection of all concerts for the venue
         sql = """
         SELECT * FROM concerts
         WHERE venue_id = ?
@@ -32,17 +33,18 @@ class Venue:
         return CURSOR.fetchall()
 
     def bands(self):
+        #Returns a collection of all bands who performed at the venue
         sql = """
-        SELECT DISTINCT b.*
-        FROM concerts c
-        JOIN bands b ON c.band_id = b.id
-        WHERE c.venue_id = ?
+        SELECT DISTINCT bands.*
+        FROM concerts 
+        JOIN bands ON concerts.band_id = bands.id
+        WHERE concerts.venue_id = ?
         """
         CURSOR.execute(sql, (self.id,))
         return CURSOR.fetchall()
     
     def concert_on(self, date):
-        # Find the first concert on this date at the venue
+        #Find the first concert on this date at the venue
         query = """
         SELECT * FROM concerts
         WHERE venue_id = ? AND date = ?
@@ -52,9 +54,9 @@ class Venue:
         return CURSOR.fetchone()
 
     def most_frequent_band(self):
-        # Return the band that has performed the most at the venue
+        #Return the band that has performed the most at the venue
         query = """
-        SELECT bands.id, bands.name, COUNT(concerts.id) AS concert_count
+        SELECT bands.id, bands.name, bands.hometown, COUNT(concerts.id) AS concert_count
         FROM concerts 
         JOIN bands ON concerts.band_id = bands.id
         WHERE concerts.venue_id = ?

@@ -2,19 +2,22 @@ from concert import Concert
 from venue import Venue
 from band import Band
 
-chainsmokers = Band(9, "chainsmokers", "LA")
+chainsmokers = Band(1, "Chainsmokers", "LA")
+# chainsmokers.create("Chainsmokers", "LA")
 print(chainsmokers)
 
-sofi_stadium = Venue(6, "Sofi Stadium", "LA")
+sofi_stadium = Venue(1, "Sofi Stadium", "LA")
+# sofi_stadium.create("Sofi Stadium", "LA")
 print(sofi_stadium)
 
-chainsmokers_concert = Concert(9, 9, 6, '2024-10-20')
+chainsmokers_concert = Concert(1, 1, 1, '2024-10-20')
+# chainsmokers_concert.create(1, 1, '2024-10-20')
 
 chainsmokers_venues = chainsmokers.venues()
 print(f"chainsmokers Venues: {chainsmokers_venues}")  
 
 # Test 'play_in_venue' method
-chainsmokers.play_in_venue("Sofi Stadium", "2024-10-20")
+# chainsmokers.play_in_venue("Sofi Stadium", "2024-10-20")
 print(f"Concerts for chainsmokers: {chainsmokers.concerts()}")  
 
 # Test 'all_introductions' method
