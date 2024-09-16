@@ -70,4 +70,4 @@ class Venue:
         if result:  # Check if a result was found
             return Band(result[0], result[1], result[2])
         else:
-            return None  # Or return a meaningful message like "No band found"
+            return None

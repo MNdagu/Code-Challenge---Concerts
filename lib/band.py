@@ -81,6 +81,6 @@ class Band:
         result = CURSOR.fetchone()
 
         if result:  # Check if a result was found
-            return cls(result[0], result[1], result[2])  # result[2] is now the hometown
+            return cls(result[0], result[1], result[2]) 
         else:
             return None  # Return None if no result found
